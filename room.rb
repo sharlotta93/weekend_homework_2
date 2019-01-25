@@ -8,9 +8,11 @@ class Room
     @capacity = capacity
     @rate = rate
     @songs_available = songs_available
+  end
 
-  end 
-
+  def add_song(song)
+    @songs_available << song
+  end
 
 
 
