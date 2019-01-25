@@ -12,7 +12,14 @@ attr_reader :name, :age, :wallet, :favourite_song
   def pay_for_room(room)
      price = room.get_room_price()
      @wallet -= price
-     return @wallet
+  end
+
+  def sufficient_funds?(room)
+    if  @wallet > room.get_room_price()
+      pay_for_room(room)
+    else
+      return false
+    end
   end
 
 end
