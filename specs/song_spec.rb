@@ -10,7 +10,7 @@ class TestSong < MiniTest::Test
   end
 
   def test_song_has_name()
-    assert_equal("Mamma Mia", @song.name)
+    assert_equal("Mamma Mia", @song.title)
   end
 
 
