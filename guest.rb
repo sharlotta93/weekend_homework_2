@@ -18,7 +18,7 @@ attr_reader :name, :age, :wallet, :favourite_song
     if  @wallet > room.get_room_price()
       pay_for_room(room)
     else
-      return false
+      return "I can't pay"
     end
   end
 
