@@ -66,13 +66,18 @@ class TestRoom < MiniTest::Test
   def test_check_in_guest__check_room_capacity_not_enough_space
     @room_2 = Room.new("Metal Alchemist", 2, [@guest_1, @guest_2] , 5, @songs)
     @room_2.check_in_guest(@guest_3)
-    assert_equal("Room is full!", @room_2.capacity_check)
+    assert_equal(false, @room_2.capacity_check)
   end
 
   def test_check_in_guest__check_room_capacity_enough_space
     @room_2 = Room.new("Metal Alchemist", 4, [@guest_1, @guest_2] , 5, @songs)
     @room_2.check_in_guest(@guest_3)
     assert_equal(3, @room_2.current_guests.count)
+  end
+
+  def test_check_in_guest__check_room_capacity_not_enough_space_test_2
+    @room_2 = Room.new("Metal Alchemist", 2, [@guest_1, @guest_2] , 5, @songs)
+    assert_equal("Room is full!", @room_2.check_in_guest(@guest_3))
   end
 
 end

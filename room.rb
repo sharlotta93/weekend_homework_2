@@ -16,19 +16,18 @@ class Room
   end
 
   def capacity_check
-    if @capacity > @current_guests.count
-      return true
-    else
-      return "Room is full!"
-    end
+     @capacity > @current_guests.count
   end
 
   def check_in_guest(guest)
-    if guest.age >= 18
-      @current_guests << guest
-    else
-      return "You're too young!"
+    if capacity_check()
+      if guest.age >= 18
+        @current_guests << guest
+      else
+        return "You're too young!"
+      end
     end
+    return "Room is full!"
   end
 
   def check_out_guest(guest)
