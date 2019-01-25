@@ -15,11 +15,19 @@ class Room
     @songs_available << song
   end
 
+  def capacity_check
+    if @capacity > @current_guests.count
+      return true
+    else
+      return "Room is full!"
+    end
+  end
+
   def check_in_guest(guest)
     if guest.age >= 18
       @current_guests << guest
     else
-      p "You're too young!"
+      return "You're too young!"
     end
   end
 
