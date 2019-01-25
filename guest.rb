@@ -9,4 +9,10 @@ attr_reader :name, :age, :wallet, :favourite_song
     @favourite_song = favourite_song
   end
 
+  def pay_for_room(room)
+     price = room.get_room_price()
+     @wallet -= price
+     return @wallet
+  end
+
 end

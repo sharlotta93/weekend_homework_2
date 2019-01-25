@@ -15,6 +15,10 @@ class Room
     @songs_available << song
   end
 
+  def get_room_price
+    return @rate
+  end
+
   def capacity_check
      @capacity > @current_guests.count
   end

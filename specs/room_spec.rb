@@ -28,6 +28,10 @@ class TestRoom < MiniTest::Test
     assert_equal(4, @songs.count)
   end
 
+  def test_room_rate_slash_price
+    assert_equal(5, @room.get_room_price)
+  end
+
   def test_check_in_guests
     @room.check_in_guest(@guest_1)
     assert_equal(1, @room.current_guests.count)
