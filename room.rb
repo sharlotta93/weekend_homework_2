@@ -24,9 +24,7 @@ class Room
   end
 
   def check_out_guest(guest)
-    if @current_guests.find {|guest| guest =! nil}
       @current_guests.delete(guest)
-    end
   end
 
 end

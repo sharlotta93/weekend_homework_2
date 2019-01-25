@@ -50,8 +50,17 @@ class TestRoom < MiniTest::Test
     @room.check_in_guest(@guest_1)
     @room.check_in_guest(@guest_2)
     @room.check_in_guest(@guest_3)
-    @room.check_out_guest(@guest_3)
+    result = @room.check_out_guest(@guest_3)
     assert_equal(2, @room.current_guests.count)
+    assert_equal(@guest_3, result)
+  end
+
+  def test_check_out_guests____guest_does_not_exists
+    @room.check_in_guest(@guest_1)
+    @room.check_in_guest(@guest_2)
+    result = @room.check_out_guest(@guest_3)
+    assert_equal(2, @room.current_guests.count)
+    assert_nil(result)
   end
 
 end
