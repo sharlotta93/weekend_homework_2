@@ -18,15 +18,11 @@ attr_accessor :rooms, :till
     @till += item.price
   end
 
-  #the get drink function initially looked for a drink by it's name and worked on it's own but after integrading it into the main function it
-  # caused issues because even though customer didn't have enough money the till would still increase. A flaw in design that hopefully won't happen again. 
-  def get_drink(drink) #(drink_requested)
-    # wanted_drink = @drinks.find { |drink| drink.name == drink_requested}
-    #  if wanted_drink
-       add_money_to_till(drink) #(wanted_drink)
-       return drink #wanted_drink
-     #end
-   end
+
+  def get_drink(drink)
+       add_money_to_till(drink)
+       return drink
+  end
 
    def old_enough?(guest)
      if guest.age >= 18
