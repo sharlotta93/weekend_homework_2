@@ -36,8 +36,8 @@ class Room
   #    return "Out!"
   # end
 
-  def check_out_guest(guest)
-      @current_guests.delete(guest)
-  end
+  # def check_out_guest(guest)
+  #     @current_guests.delete(guest)
+  # end
 
 end

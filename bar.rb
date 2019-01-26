@@ -39,6 +39,12 @@ attr_accessor :rooms, :till
       return "Out!"
    end
 
+   def check_out_guest(guest, room)
+     if guest.nil? == false
+       room.current_guests.delete(guest)
+     end
+   end
+
 
 
 

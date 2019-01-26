@@ -23,6 +23,7 @@ class TestBar < MiniTest::Test
     @bar = Bar.new("Dancing Tiger", @room_1, [@drink_1, @drink_2])
     @guest = Guest.new("Bob", 32, 40, @song_2)
     @guest_1 = Guest.new("Daniel", 18, 20, @song_3)
+    @guest_2 = Guest.new("Janet", 26, 50, @song_1)
   end
 
   def test_get_bar_name()
@@ -73,14 +74,38 @@ class TestBar < MiniTest::Test
     assert_equal(2, @room.current_guests.count)
   end
 
-  # def test_check_in_guest__check_room_capacity_not_enough_space_test_2
-  #   @room_2 = Room.new("Metal Alchemist", 2, [@guest_1, @guest_2] , 5, @songs)
-  #   assert_equal("Out!", @room_2.check_in_guest(@guest_3, @room_2))
-  # end
-  #
-  # def test_check_in_guest__check_sufficient_funds
-  #   @room.check_in_guest(@guest_3, @room)
-  #   assert_equal(1, @room.current_guests.count)
-  #end
+  def test_check_in_guest__check_room_capacity_not_enough_space_test_2
+    @room_2 = Room.new("Metal Alchemist", 2, [@guest, @guest_1] , 5, @songs)
+    assert_equal("Out!", @bar.check_in_guest(@guest_2, @room_2))
+  end
+
+  def test_check_in_guest__check_sufficient_funds
+    @bar.check_in_guest(@guest_2, @room_1)
+    assert_equal(1, @room_1.current_guests.count)
+  end
+
+  def test_check_out_guests
+    @bar.check_in_guest(@guest, @room_1)
+    @bar.check_in_guest(@guest_1, @room_1)
+    @bar.check_out_guest(@guest_1, @room_1)
+    assert_equal(1, @room_1.current_guests.count)
+  end
+
+  def test_check_out_guests____multiple_guests
+    @bar.check_in_guest(@guest, @room_1)
+    @bar.check_in_guest(@guest_1, @room_1)
+    @bar.check_in_guest(@guest_2, @room_1)
+    result = @bar.check_out_guest(@guest, @room_1)
+    assert_equal(2, @room_1.current_guests.count)
+    assert_equal(@guest, result)
+  end
+
+  def test_check_out_guests____guest_does_not_exists
+    @bar.check_in_guest(@guest_1, @room_1)
+    @bar.check_in_guest(@guest_2, @room_1)
+    result = @bar.check_out_guest(@guest_3, @room_1)
+    assert_equal(2, @room_1.current_guests.count)
+    assert_nil(result)
+  end
 
 end
