@@ -14,7 +14,9 @@ attr_accessor :rooms, :till
     @drinks << drink
   end
 
-
+  def add_money_to_till(drink)
+    @till += drink.price
+  end
 
 
 

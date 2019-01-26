@@ -38,8 +38,13 @@ class TestBar < MiniTest::Test
     assert_equal(3, @bar.drinks.count)
   end
 
-  # def test_get_drink_price()
-  #   assert_equal(3, @bar.get_price(@drink_1))
-  # end
+  def test_get_drink_price()
+    assert_equal(3, @drink_1.price)
+  end
+
+  def test_add_money_to_the_till
+    @bar.add_money_to_till(@drink_2)
+    assert_equal(5, @bar.till)
+  end
 
 end
