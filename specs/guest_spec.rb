@@ -11,6 +11,9 @@ class TestGuest < MiniTest::Test
   def setup()
     @song = Song.new("Mamma Mia")
     @guest = Guest.new("Bob", 32, 40, @song)
+    @song_2 = Song.new("Like a Virgin")
+    @song_3 = Song.new("Hey Jude")
+    @songs = [@song, @song_2, @song_3]
     @room = Room.new("Funk Town", 4, [] , 5, @songs)
   end
 
@@ -40,5 +43,7 @@ class TestGuest < MiniTest::Test
     assert_equal(15, @guest_1.sufficient_funds?(@room))
   end
 
-
+  def test_check_if_room_has_fvourite_song___true
+    assert_equal("Whooohoo!", @guest.favourite_song?(@room.songs_available))
+  end
 end

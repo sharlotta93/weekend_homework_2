@@ -32,36 +32,40 @@ class TestRoom < MiniTest::Test
     assert_equal(5, @room.get_room_price)
   end
 
+  def test_if_guest_is_old_enough
+    assert_equal(true, @room.old_enough?(@guest_1))
+  end
+
   def test_check_in_guests
-    @room.check_in_guest(@guest_1)
+    @room.check_in_guest(@guest_1, @room)
     assert_equal(1, @room.current_guests.count)
   end
 
   def test_check_in_guests___too_young
     @guest_0 = Guest.new("Jodie", 16, 50, @song_1)
-    @room.check_in_guest(@guest_0)
+    @room.check_in_guest(@guest_0, @room)
     assert_equal(0, @room.current_guests.count)
   end
 
   def test_check_out_guests
-    @room.check_in_guest(@guest_1)
-    @room.check_in_guest(@guest_2)
+    @room.check_in_guest(@guest_1, @room)
+    @room.check_in_guest(@guest_2, @room)
     @room.check_out_guest(@guest_2)
     assert_equal(1, @room.current_guests.count)
   end
 
   def test_check_out_guests____multiple_guests
-    @room.check_in_guest(@guest_1)
-    @room.check_in_guest(@guest_2)
-    @room.check_in_guest(@guest_3)
+    @room.check_in_guest(@guest_1, @room)
+    @room.check_in_guest(@guest_2, @room)
+    @room.check_in_guest(@guest_3, @room)
     result = @room.check_out_guest(@guest_3)
     assert_equal(2, @room.current_guests.count)
     assert_equal(@guest_3, result)
   end
 
   def test_check_out_guests____guest_does_not_exists
-    @room.check_in_guest(@guest_1)
-    @room.check_in_guest(@guest_2)
+    @room.check_in_guest(@guest_1, @room)
+    @room.check_in_guest(@guest_2, @room)
     result = @room.check_out_guest(@guest_3)
     assert_equal(2, @room.current_guests.count)
     assert_nil(result)
@@ -69,19 +73,26 @@ class TestRoom < MiniTest::Test
 
   def test_check_in_guest__check_room_capacity_not_enough_space
     @room_2 = Room.new("Metal Alchemist", 2, [@guest_1, @guest_2] , 5, @songs)
-    @room_2.check_in_guest(@guest_3)
+    @room_2.check_in_guest(@guest_3, @room_2)
     assert_equal(false, @room_2.capacity_check)
   end
 
   def test_check_in_guest__check_room_capacity_enough_space
     @room_2 = Room.new("Metal Alchemist", 4, [@guest_1, @guest_2] , 5, @songs)
-    @room_2.check_in_guest(@guest_3)
+    @room_2.check_in_guest(@guest_3, @room_2)
     assert_equal(3, @room_2.current_guests.count)
   end
 
   def test_check_in_guest__check_room_capacity_not_enough_space_test_2
     @room_2 = Room.new("Metal Alchemist", 2, [@guest_1, @guest_2] , 5, @songs)
-    assert_equal("Room is full!", @room_2.check_in_guest(@guest_3))
+    assert_equal("Out!", @room_2.check_in_guest(@guest_3, @room_2))
   end
+
+  def test_check_in_guest__check_sufficient_funds
+    @room.check_in_guest(@guest_3, @room)
+    assert_equal(1, @room.current_guests.count)
+  end
+
+  
 
 end
