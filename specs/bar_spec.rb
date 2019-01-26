@@ -32,10 +32,11 @@ class TestBar < MiniTest::Test
     assert_equal(2, @bar.drinks.count)
   end
 
-  # def test_add_drink_to_pub()
-  #   @pub.add_drink(@drink_1)
-  #   assert_equal(1, @pub.total_drinks)
-  # end
+  def test_add_drink_to_pub()
+    @drink_3 = Drink.new("Cider", 4)
+    @bar.add_drink(@drink_3)
+    assert_equal(3, @bar.drinks.count)
+  end
 
   # def test_get_drink_price()
   #   assert_equal(3, @bar.get_price(@drink_1))

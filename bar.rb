@@ -10,7 +10,9 @@ attr_accessor :rooms, :till
     @till = 0
   end
 
-
+  def add_drink(drink)
+    @drinks << drink
+  end
 
 
 
