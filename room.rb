@@ -1,6 +1,6 @@
 class Room
 
-  attr_reader :name, :capacity, :rate
+  attr_reader :name, :capacity, :rate, :price
   attr_accessor :songs_available, :current_guests
 
   def initialize(name, capacity, current_guests, price, songs_available)

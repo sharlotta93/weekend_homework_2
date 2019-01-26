@@ -45,7 +45,7 @@ class TestGuest < MiniTest::Test
 
   def test_pay_for_the_room__no_sufficient_funds
     @guest_1 = Guest.new("Jackie", 18, 2, @song)
-    assert_equal("I can't pay", @guest_1.sufficient_funds?(@room))
+    assert_equal(false, @guest_1.sufficient_funds?(@room))
   end
 
   def test_pay_for_the_room__sufficient_funds
@@ -64,11 +64,13 @@ class TestGuest < MiniTest::Test
   end
 
   def test_pay_for_drink
-    assert_equal(35, @guest.pay_for_drink(@bar, @drink_2))
+    assert_equal(35, @guest.pay_for_drink(@drink_2))
   end
 
   def test_customer_can_buy_drink
-    assert_equal(37, @guest.buy_drink(@bar, "Beer"))
+    @guest.buy_drink(@bar, @drink_1)
+    assert_equal(37, @guest.wallet)
     assert_equal(3, @bar.till)
   end
+
 end

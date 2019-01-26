@@ -55,17 +55,17 @@ class TestBar < MiniTest::Test
 
   def test_check_in_guests___too_young
     @guest_0 = Guest.new("Jodie", 16, 50, @song_1)
-    assert_equal("Out!", @bar.check_in_guest(@guest_0, @room_1))
+    assert_equal(false, @bar.check_in_guest(@guest_0, @room_1))
   end
 
   def test_get_drink_for_the_customer__add_money_to_till()
-    assert_equal(@drink_1, @bar.get_drink("Beer"))
+    assert_equal(@drink_1, @bar.get_drink(@drink_1)) #"Beer"))
     assert_equal(3, @bar.till)
   end
 
   def test_check_in_guest__check_room_capacity_not_enough_space
     @room_2 = Room.new("Metal Alchemist", 0, [] , 5, @songs)
-    assert_equal("Out!", @bar.check_in_guest(@guest, @room_2))
+    assert_equal(false, @bar.check_in_guest(@guest, @room_2))
   end
 
   def test_check_in_guest__check_room_capacity_enough_space
@@ -76,7 +76,7 @@ class TestBar < MiniTest::Test
 
   def test_check_in_guest__check_room_capacity_not_enough_space_test_2
     @room_2 = Room.new("Metal Alchemist", 2, [@guest, @guest_1] , 5, @songs)
-    assert_equal("Out!", @bar.check_in_guest(@guest_2, @room_2))
+    assert_equal(false, @bar.check_in_guest(@guest_2, @room_2))
   end
 
   def test_check_in_guest__check_sufficient_funds
@@ -106,6 +106,19 @@ class TestBar < MiniTest::Test
     result = @bar.check_out_guest(@guest_3, @room_1)
     assert_equal(2, @room_1.current_guests.count)
     assert_nil(result)
+  end
+
+  def test_check_guest_in_and_they_buy_a_drink
+    @bar.full_experience(@guest_1, @room_1, @drink_1)
+    assert_equal(1, @room_1.current_guests.count)
+    assert_equal(8, @bar.till)
+  end
+
+  def test_check_guest_in_and_they_buy_a_drink___not_enough_money
+    @guest_3 = Guest.new("Brian", 21, 2, @song_1)
+    @bar.full_experience(@guest_3, @room_1, @drink_2)
+    assert_equal(0, @room_1.current_guests.count)
+    assert_equal(0, @bar.till)
   end
 
 end

@@ -18,7 +18,7 @@ attr_reader :name, :age, :wallet, :favourite_song
     if  @wallet > room.get_room_price()
       pay_for_room(room)
     else
-      return "I can't pay"
+      return false
     end
   end
 
@@ -29,18 +29,18 @@ attr_reader :name, :age, :wallet, :favourite_song
         end
    end
 
-   def pay_for_drink(bar, drink)
-      price = drink.price
-      if @wallet > price
-         @wallet -= price
+   def pay_for_drink(drink)
+      if @wallet > drink.price
+         @wallet -= drink.price
       else
-       return "I can't pay!"
+       return false
       end
    end
 
-   def buy_drink(bar, drink_wanted)
-     drink = bar.get_drink(drink_wanted)
-     pay_for_drink(bar, drink)
+   def buy_drink(bar, drink)
+      if pay_for_drink(drink)
+        bar.get_drink(drink)
+     end
    end
 
 end
