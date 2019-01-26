@@ -47,5 +47,4 @@ attr_accessor :rooms, :till
 
 
 
-
 end

@@ -29,4 +29,18 @@ attr_reader :name, :age, :wallet, :favourite_song
         end
    end
 
+   def pay_for_drink(bar, drink)
+      price = drink.price
+      if @wallet > price
+         @wallet -= price
+      else
+       return "I can't pay!"
+      end
+   end
+
+   def buy_drink(bar, drink_wanted)
+     drink = bar.get_drink(drink_wanted)
+     pay_for_drink(bar, drink)
+   end
+
 end

@@ -3,6 +3,8 @@ require( 'minitest/rg' )
 require_relative( "../guest")
 require_relative( "../song" )
 require_relative("../room")
+require_relative("../bar")
+require_relative("../drink")
 
 
 
@@ -10,11 +12,19 @@ class TestGuest < MiniTest::Test
 
   def setup()
     @song = Song.new("Mamma Mia")
-    @guest = Guest.new("Bob", 32, 40, @song)
     @song_2 = Song.new("Like a Virgin")
     @song_3 = Song.new("Hey Jude")
+
+    @guest = Guest.new("Bob", 32, 40, @song)
+
     @songs = [@song, @song_2, @song_3]
     @room = Room.new("Funk Town", 4, [] , 5, @songs)
+
+    @drink_1 = Drink.new("Beer", 3)
+    @drink_2 = Drink.new("Wine", 5)
+
+    @bar = Bar.new("Dancing Tiger", @room_1, [@drink_1, @drink_2])
+
   end
 
   def test_customer_has_name()
@@ -51,5 +61,14 @@ class TestGuest < MiniTest::Test
     @song_4 = Song.new("Ghost Assassin")
     @guest_1 = Guest.new("Jackie", 18, 20, @song_4)
     assert_nil( @guest_1.favourite_song?(@room.songs_available))
+  end
+
+  def test_pay_for_drink
+    assert_equal(35, @guest.pay_for_drink(@bar, @drink_2))
+  end
+
+  def test_customer_can_buy_drink
+    assert_equal(37, @guest.buy_drink(@bar, "Beer"))
+    assert_equal(3, @bar.till)
   end
 end
