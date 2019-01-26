@@ -23,8 +23,10 @@ attr_reader :name, :age, :wallet, :favourite_song
   end
 
   def favourite_song?(songs)
-    songs.find { |song| song == @favourite_song}
-        return "Whooohoo!"
-  end
+    fav_song_available = songs.find { |song| song == @favourite_song }
+        if fav_song_available
+          return "Whooohoo!"
+        end
+   end
 
 end

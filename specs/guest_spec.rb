@@ -46,4 +46,10 @@ class TestGuest < MiniTest::Test
   def test_check_if_room_has_fvourite_song___true
     assert_equal("Whooohoo!", @guest.favourite_song?(@room.songs_available))
   end
+
+  def test_check_if_room_has_fvourite_song___false
+    @song_4 = Song.new("Ghost Assassin")
+    @guest_1 = Guest.new("Jackie", 18, 20, @song_4)
+    assert_nil( @guest_1.favourite_song?(@room.songs_available))
+  end
 end
