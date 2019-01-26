@@ -23,11 +23,8 @@ attr_reader :name, :age, :wallet, :favourite_song
   end
 
   def favourite_song?(songs)
-     for song in songs
-      if song == @favourite_song
+    songs.find { |song| song == @favourite_song}
         return "Whooohoo!"
-      end
-    end
   end
 
 end
