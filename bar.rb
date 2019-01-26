@@ -14,11 +14,17 @@ attr_accessor :rooms, :till
     @drinks << drink
   end
 
-  def add_money_to_till(drink)
-    @till += drink.price
+  def add_money_to_till(item) #item can be room or drink price
+    @till += item.price
   end
 
-
+  def get_drink(drink_requested)
+    wanted_drink = @drinks.find { |drink| drink.name == drink_requested}
+     if wanted_drink
+       add_money_to_till(wanted_drink)
+       return wanted_drink
+     end
+  end
 
 
 

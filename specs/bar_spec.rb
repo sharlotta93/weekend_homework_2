@@ -47,4 +47,9 @@ class TestBar < MiniTest::Test
     assert_equal(5, @bar.till)
   end
 
+  def test_get_drink_for_the_customer__add_money_to_till()
+    assert_equal(@drink_1, @bar.get_drink("Beer"))
+    assert_equal(3, @bar.till)
+  end
+
 end
