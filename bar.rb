@@ -24,7 +24,20 @@ attr_accessor :rooms, :till
        add_money_to_till(wanted_drink)
        return wanted_drink
      end
-  end
+   end
+
+   def old_enough?(guest)
+     if guest.age >= 18
+       return true
+     end
+   end
+
+   def check_in_guest(guest, room)
+     if room.capacity_check() && guest.sufficient_funds?(room) && old_enough?(guest)
+         room.current_guests << guest
+     end
+      return "Out!"
+   end
 
 
 
