@@ -18,7 +18,6 @@ attr_accessor :rooms, :till
     @till += item.price
   end
 
-
   def get_drink(drink)
        add_money_to_till(drink)
        return drink
